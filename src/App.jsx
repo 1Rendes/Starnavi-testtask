@@ -11,7 +11,7 @@ function App() {
       <Suspense fallback={<div>Loading page...</div>}>
         <Routes>
           <Route path="/" element={<HomePage />} />
-          <Route path="/:characterId" element={<CharacterPage />} />
+          <Route path="/characters/:characterId" element={<CharacterPage />} />
           <Route path="*" element={<Navigate to={"/"} />} />
         </Routes>
       </Suspense>
