@@ -38,8 +38,8 @@ const CharacterPage = () => {
       );
       const ShipsGroupedByFilm = groupByFilms(shipsData, films);
       const graphData = createGraphData(characterName, ShipsGroupedByFilm);
-      setLoaded(true);
       setGraphData(graphData);
+      setLoaded(true);
     };
     getShipsData();
   }, [characterId, characterName, films]);

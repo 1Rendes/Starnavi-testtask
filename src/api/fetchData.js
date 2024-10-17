@@ -15,12 +15,10 @@ export async function fetchData(
     page,
     characters,
   };
-
   try {
     const { data } = await axios.get(endpoint, { params });
-    // console.log("endpoint:", endpoint, data);
     return data;
   } catch (error) {
-    console.log(error);
+    return error;
   }
 }
