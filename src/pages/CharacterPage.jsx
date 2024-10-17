@@ -4,14 +4,13 @@ import { fetchData } from "../api/fetchData";
 import { groupByFilms } from "../helpers/groupByFilms";
 import { createGraphData } from "../helpers/createGraphData";
 import "reactflow/dist/style.css";
-import Flow from "./Flow";
+import Flow from "../components/Flow";
 
-const ActorCard = () => {
+const CharacterPage = () => {
   const location = useLocation();
-  const actorName = location.state;
-  const { actorId } = useParams();
+  const characterName = location.state;
+  const { characterId } = useParams();
   const [films, setFilms] = useState([]);
-  // const [shipsInFilms, setShipsInFilms] = useState({});
   const filmsEndpoint = "films/";
   const shipEndpoint = "starships/";
   const [graphData, setGraphData] = useState({});
@@ -35,18 +34,17 @@ const ActorCard = () => {
       const shipsData = await fetchData(
         shipEndpoint,
         films.map((film) => film.id).join(","),
-        actorId
+        characterId
       );
       const ShipsGroupedByFilm = groupByFilms(shipsData, films);
-      const graphData = createGraphData(actorName, ShipsGroupedByFilm);
-      console.log(graphData);
+      const graphData = createGraphData(characterName, ShipsGroupedByFilm);
       setLoaded(true);
       setGraphData(graphData);
     };
     getShipsData();
-  }, [actorId, actorName, films]);
+  }, [characterId, characterName, films]);
 
-  return <div>{loaded && <Flow graphData={graphData} />}</div>;
+  return <>{loaded && <Flow graphData={graphData} />}</>;
 };
 
-export default ActorCard;
+export default CharacterPage;

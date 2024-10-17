@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import ActorsList from "../components/ActorsList";
+import CharacterList from "../components/CharactersList";
 import toast, { Toaster } from "react-hot-toast";
 import LoadMoreButton from "../components/LoadMoreButton";
 import { useFetch } from "../hooks/useFetch";
@@ -32,7 +32,7 @@ const HomePage = () => {
 
   return (
     <div>
-      {data && <ActorsList actorsList={renderData} />}
+      {data && <CharacterList charactersList={renderData} />}
       <Toaster />
       <LoadMoreButton onClick={loadMoreHandle} />
     </div>

@@ -2,10 +2,16 @@ import axios from "axios";
 
 axios.defaults.baseURL = "https://sw-api.starnavi.io/";
 
-export async function fetchData(endpoint, films, actorId, page, characters) {
+export async function fetchData(
+  endpoint,
+  films,
+  characterId,
+  page,
+  characters
+) {
   const params = {
     films__in: films,
-    pilots: actorId,
+    pilots: characterId,
     page,
     characters,
   };

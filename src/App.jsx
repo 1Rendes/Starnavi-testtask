@@ -1,8 +1,8 @@
 import { Suspense } from "react";
-import { Route, Routes } from "react-router-dom";
-import ActorCard from "./components/ActorCard.jsx";
+import { Navigate, Route, Routes } from "react-router-dom";
 import HomePage from "./pages/HomePage.jsx";
 import Navigation from "./components/Navigation.jsx";
+import CharacterPage from "./pages/CharacterPage.jsx";
 
 function App() {
   return (
@@ -11,7 +11,8 @@ function App() {
       <Suspense fallback={<div>Loading page...</div>}>
         <Routes>
           <Route path="/" element={<HomePage />} />
-          <Route path="/:actorId" element={<ActorCard />} />
+          <Route path="/:characterId" element={<CharacterPage />} />
+          <Route path="*" element={<Navigate to={"/"} />} />
         </Routes>
       </Suspense>
     </>
