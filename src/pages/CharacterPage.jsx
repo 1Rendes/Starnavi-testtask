@@ -1,50 +1,41 @@
-import { useLocation, useParams } from "react-router-dom";
-import { useEffect, useState } from "react";
-import { fetchData } from "../api/fetchData";
-import { groupByFilms } from "../helpers/groupByFilms";
-import { createGraphData } from "../helpers/createGraphData";
+import { useParams } from "react-router-dom";
+import { useEffect } from "react";
 import "reactflow/dist/style.css";
 import Flow from "../components/Flow";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  selectCharacterName,
+  selectFilms,
+  selectFilmsEndpoint,
+  selectGraphData,
+  selectIsLoaded,
+  selectShipEndpoint,
+} from "../redux/selectors";
+import { getFilmsData, getGraphData } from "../redux/operations";
+import { resetFilmData } from "../redux/slice";
 
 const CharacterPage = () => {
-  const location = useLocation();
-  const characterName = location.state;
+  const dispatch = useDispatch();
+  const filmsEndpoint = useSelector(selectFilmsEndpoint);
+  const shipEndpoint = useSelector(selectShipEndpoint);
+  const characterName = useSelector(selectCharacterName);
+  const graphData = useSelector(selectGraphData);
+  const films = useSelector(selectFilms);
   const { characterId } = useParams();
-  const [films, setFilms] = useState([]);
-  const filmsEndpoint = "films/";
-  const shipEndpoint = "starships/";
-  const [graphData, setGraphData] = useState({});
-  const [loaded, setLoaded] = useState(false);
+  const isLoaded = useSelector(selectIsLoaded);
 
   useEffect(() => {
-    const getFilmsData = async () => {
-      const { results } = await fetchData(filmsEndpoint);
-      const films = results.map((filmsData) => ({
-        id: filmsData.id,
-        title: filmsData.title,
-      }));
-      setFilms(films);
-    };
-    getFilmsData();
+    if (graphData.initialNodes) return;
+    dispatch(getFilmsData(filmsEndpoint));
   }, []);
 
   useEffect(() => {
     if (!films.length) return;
-    const getShipsData = async () => {
-      const shipsData = await fetchData(
-        shipEndpoint,
-        films.map((film) => film.id).join(","),
-        characterId
-      );
-      const ShipsGroupedByFilm = groupByFilms(shipsData, films);
-      const graphData = createGraphData(characterName, ShipsGroupedByFilm);
-      setGraphData(graphData);
-      setLoaded(true);
-    };
-    getShipsData();
-  }, [characterId, characterName, films]);
+    dispatch(getGraphData({ shipEndpoint, films, characterId, characterName }));
+    dispatch(resetFilmData());
+  }, [films]);
 
-  return <>{loaded && <Flow graphData={graphData} />}</>;
+  return <>{isLoaded && <Flow graphData={graphData} />}</>;
 };
 
 export default CharacterPage;

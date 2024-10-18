@@ -1,43 +1,43 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import CharacterList from "../components/CharactersList";
 import toast, { Toaster } from "react-hot-toast";
 import LoadMoreButton from "../components/LoadMoreButton";
-import { fetchData } from "../api/fetchData";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  selectError,
+  selectHomePageEndpoint,
+  selectPage,
+  selectRenderData,
+} from "../redux/selectors";
+import { getOnePageList } from "../redux/operations";
+import { resetData, setPage } from "../redux/slice";
 
 const HomePage = () => {
-  const [page, setPage] = useState(1);
-  const [data, setData] = useState({});
-  const [renderData, setRenderData] = useState([]);
-  const homePageEndpoint = "people/";
+  const dispatch = useDispatch();
+  const page = useSelector(selectPage);
+  const renderData = useSelector(selectRenderData);
+  const endpoint = useSelector(selectHomePageEndpoint);
+  const error = useSelector(selectError);
 
   useEffect(() => {
-    const getOnePageList = async () => {
-      const onePageList = await fetchData(homePageEndpoint, null, null, page);
-      setData(onePageList);
-    };
-    getOnePageList();
-  }, [page]);
+    dispatch(resetData());
+  }, [dispatch]);
 
   useEffect(() => {
-    if (data instanceof Error) toast.error(data.message);
-    return;
-  }, [data]);
-
-  useEffect(() => {
-    if (!data.results) return;
-    setRenderData((prevData) => {
-      return [...prevData, ...data.results];
-    });
-  }, [data]);
+    const values = { endpoint, page };
+    dispatch(getOnePageList(values));
+  }, [dispatch, endpoint, page]);
 
   const loadMoreHandle = () => {
-    const newPage = page + 1;
-    setPage(newPage);
+    dispatch(setPage());
   };
+  useEffect(() => {
+    if (error) toast.error(error);
+  }, [error]);
 
   return (
     <div>
-      {data && <CharacterList charactersList={renderData} />}
+      {renderData && <CharacterList charactersList={renderData} />}
       <Toaster />
       <LoadMoreButton onClick={loadMoreHandle} />
     </div>
