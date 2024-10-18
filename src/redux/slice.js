@@ -26,7 +26,6 @@ export const stateSlice = createSlice({
       state.renderData = [];
       state.error = null;
       state.graphData = {};
-      state.page = 1;
     },
     resetFilmData(state) {
       state.films = [];
@@ -34,6 +33,7 @@ export const stateSlice = createSlice({
     setCharacterName(state, { payload }) {
       state.characterName = payload;
       state.isLoaded = false;
+      state.page = 1;
     },
   },
   extraReducers: (builder) => {
