@@ -57,7 +57,7 @@ export type GetGraphDataValues = {
   characterName: string;
 };
 
-type Character = {
+export type Character = {
   id: number;
   name: string;
 };

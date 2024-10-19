@@ -10,8 +10,14 @@ export const getOnePageList = createAsyncThunk(
     const endpoint = values.endpoint;
     const page = values.page;
     try {
-      const onePageList = await fetchData(endpoint, null, null, page);
-      return onePageList.results;
+      const onePageList = await fetchData(
+        endpoint,
+        undefined,
+        undefined,
+        page,
+        undefined
+      );
+      return onePageList?.results;
     } catch (error) {
       return thunkApi.rejectWithValue(error);
     }
