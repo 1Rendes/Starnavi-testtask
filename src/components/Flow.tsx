@@ -6,17 +6,23 @@ import ReactFlow, {
   useNodesState,
   useEdgesState,
   addEdge,
+  Connection,
+  Edge,
+  Node,
+  NodeChange,
+  EdgeChange,
 } from "reactflow";
 
 import "reactflow/dist/style.css";
+import { FlowProps, CustomNodeData } from "../types";
 
-function Flow({ graphData }) {
+const Flow: React.FC<FlowProps> = ({ graphData }) => {
   const { initialEdges, initialNodes } = graphData;
   const [nodes, , onNodesChange] = useNodesState(initialNodes);
   const [edges, setEdges, onEdgesChange] = useEdgesState(initialEdges);
 
   const onConnect = useCallback(
-    (params) => setEdges((eds) => addEdge(params, eds)),
+    (params: Connection) => setEdges((eds) => addEdge(params, eds)),
     [setEdges]
   );
 
@@ -25,8 +31,8 @@ function Flow({ graphData }) {
       <ReactFlow
         nodes={nodes}
         edges={edges}
-        onNodesChange={onNodesChange}
-        onEdgesChange={onEdgesChange}
+        onNodesChange={onNodesChange as (changes: NodeChange[]) => void}
+        onEdgesChange={onEdgesChange as (changes: EdgeChange[]) => void}
         onConnect={onConnect}
       >
         <MiniMap />
@@ -35,6 +41,6 @@ function Flow({ graphData }) {
       </ReactFlow>
     </div>
   );
-}
+};
 
 export default Flow;

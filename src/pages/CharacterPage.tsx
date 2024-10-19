@@ -13,9 +13,10 @@ import {
 } from "../redux/selectors";
 import { getFilmsData, getGraphData } from "../redux/operations";
 import { resetFilmData } from "../redux/slice";
+import { AppDispatch } from "../redux/store";
 
 const CharacterPage = () => {
-  const dispatch = useDispatch();
+  const dispatch = useDispatch<AppDispatch>();
   const filmsEndpoint = useSelector(selectFilmsEndpoint);
   const shipEndpoint = useSelector(selectShipEndpoint);
   const characterName = useSelector(selectCharacterName);
@@ -25,7 +26,7 @@ const CharacterPage = () => {
   const isLoaded = useSelector(selectIsLoaded);
 
   useEffect(() => {
-    if (graphData.initialNodes) return;
+    if (graphData.initialNodes.length) return;
     dispatch(getFilmsData(filmsEndpoint));
   }, []);
 

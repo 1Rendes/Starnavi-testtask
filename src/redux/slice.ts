@@ -1,18 +1,19 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { getFilmsData, getGraphData, getOnePageList } from "./operations";
+import { Films, GraphDataPayload, InitialState, RenderData } from "../types";
 
-const INITIAL_STATE = {
+const INITIAL_STATE: InitialState = {
   page: 1,
   renderData: [],
   homePageEndpoint: "people/",
   filmsEndpoint: "films/",
   shipEndpoint: "starships/",
   films: [],
-  graphData: {},
+  graphData: { initialNodes: [], initialEdges: [] },
   isLoaded: false,
   characterName: "",
   characterId: 0,
-  error: null,
+  error: "",
 };
 
 export const stateSlice = createSlice({
@@ -24,8 +25,8 @@ export const stateSlice = createSlice({
     },
     resetData(state) {
       state.renderData = [];
-      state.error = null;
-      state.graphData = {};
+      state.error = "";
+      state.graphData = { initialNodes: [], initialEdges: [] };
     },
     resetFilmData(state) {
       state.films = [];
@@ -37,34 +38,38 @@ export const stateSlice = createSlice({
     },
   },
   extraReducers: (builder) => {
-    builder.addCase(getOnePageList.fulfilled, (state, { payload }) => {
-      state.renderData = [...state.renderData, ...payload];
-    });
+    builder.addCase(
+      getOnePageList.fulfilled,
+      (state, { payload }: PayloadAction<RenderData>) => {
+        state.renderData = [...state.renderData, ...payload];
+      }
+    );
     builder.addCase(getOnePageList.rejected, (state, { payload }) => {
       state.error =
         payload instanceof Error ? payload.message : "Unknown error.";
     });
-    builder.addCase(getFilmsData.fulfilled, (state, { payload }) => {
-      state.films = payload;
-      state.graphData = {};
-    });
+    builder.addCase(
+      getFilmsData.fulfilled,
+      (state, { payload }: PayloadAction<Films>) => {
+        state.films = payload;
+        state.graphData = { initialNodes: [], initialEdges: [] };
+      }
+    );
     builder.addCase(getFilmsData.rejected, (state, { payload }) => {
       state.error =
         payload instanceof Error ? payload.message : "Unknown error.";
     });
-    builder.addCase(getGraphData.fulfilled, (state, { payload }) => {
-      state.graphData = payload.graphData;
-      state.characterName = payload.characterName;
-      state.isLoaded = true;
-    });
+    builder.addCase(
+      getGraphData.fulfilled,
+      (state, { payload }: PayloadAction<GraphDataPayload>) => {
+        state.graphData = payload.graphData;
+        state.characterName = payload.characterName;
+        state.isLoaded = true;
+      }
+    );
   },
 });
 
 export const stateReducer = stateSlice.reducer;
-export const {
-  setPage,
-  resetData,
-  setCharacterName,
-  setIsLoaded,
-  resetFilmData,
-} = stateSlice.actions;
+export const { setPage, resetData, setCharacterName, resetFilmData } =
+  stateSlice.actions;

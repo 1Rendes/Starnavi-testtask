@@ -1,6 +1,12 @@
-export function createGraphData(heroName, filmShipMapping) {
-  const initialNodes = [];
-  const initialEdges = [];
+import { Edge, Node } from "reactflow";
+import { FilmMapping, GraphData } from "../types";
+
+export function createGraphData(
+  heroName: string,
+  filmShipMapping: FilmMapping
+): GraphData {
+  const initialNodes: Node[] = [];
+  const initialEdges: Edge[] = [];
 
   // Create the hero node at the center top
   const heroNodeId = `hero-${heroName}`;

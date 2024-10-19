@@ -1,10 +1,12 @@
 import { Link } from "react-router-dom";
 import { setCharacterName } from "../redux/slice";
 import { useDispatch } from "react-redux";
+import { CharactersListProps } from "../types";
+import { AppDispatch } from "../redux/store";
 
-const CharactersList = ({ charactersList }) => {
-  const dispatch = useDispatch();
-  const handleClick = (name) => {
+const CharactersList: React.FC<CharactersListProps> = ({ charactersList }) => {
+  const dispatch: AppDispatch = useDispatch();
+  const handleClick = (name: string) => {
     dispatch(setCharacterName(name));
   };
   return (

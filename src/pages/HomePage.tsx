@@ -11,9 +11,10 @@ import {
 } from "../redux/selectors";
 import { getOnePageList } from "../redux/operations";
 import { resetData, setPage } from "../redux/slice";
+import { AppDispatch } from "../redux/store";
 
 const HomePage = () => {
-  const dispatch = useDispatch();
+  const dispatch = useDispatch<AppDispatch>();
   const page = useSelector(selectPage);
   const renderData = useSelector(selectRenderData);
   const endpoint = useSelector(selectHomePageEndpoint);
