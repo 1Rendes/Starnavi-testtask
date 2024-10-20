@@ -1,7 +1,7 @@
 import { useEffect } from "react";
-import CharacterList from "../components/CharactersList";
+import CharacterList from "../components/CharactersList/CharactersList";
 import toast, { Toaster } from "react-hot-toast";
-import LoadMoreButton from "../components/LoadMoreButton";
+import LoadMoreButton from "../components/LoadMoreButton/LoadMoreButton";
 import { useDispatch, useSelector } from "react-redux";
 import {
   selectError,
@@ -13,7 +13,7 @@ import {
 import { getOnePageList } from "../redux/operations";
 import { resetData, setPage } from "../redux/slice";
 import { AppDispatch } from "../redux/store";
-import Container from "../components/Container";
+import Container from "../components/Container/Container";
 
 const HomePage = () => {
   const dispatch = useDispatch<AppDispatch>();
@@ -41,10 +41,6 @@ const HomePage = () => {
   }, [renderData, page]);
 
   const loadMoreHandle = () => {
-    if (!next) {
-      toast.error("That's all of them.");
-      return;
-    }
     dispatch(setPage());
   };
   useEffect(() => {
@@ -55,7 +51,7 @@ const HomePage = () => {
     <Container>
       {renderData && <CharacterList charactersList={renderData} />}
       <Toaster />
-      <LoadMoreButton onClick={loadMoreHandle} />
+      {next && <LoadMoreButton onClick={loadMoreHandle} />}
     </Container>
   );
 };

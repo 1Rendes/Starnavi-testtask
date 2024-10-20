@@ -1,4 +1,4 @@
-import { LoadMoreButtonProps } from "../types";
+import { LoadMoreButtonProps } from "../../types";
 import css from "./LoadMoreButton.module.css";
 
 const LoadMoreButton: React.FC<LoadMoreButtonProps> = ({ onClick }) => {

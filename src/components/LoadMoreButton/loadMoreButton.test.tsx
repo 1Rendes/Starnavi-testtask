@@ -1,6 +1,6 @@
 import { render, screen, fireEvent } from "@testing-library/react";
-import LoadMoreButton from "../components/LoadMoreButton";
-import { LoadMoreButtonProps } from "../types";
+import LoadMoreButton from "./LoadMoreButton";
+import { LoadMoreButtonProps } from "../../types";
 
 test("renders Load More button", () => {
   const mockOnClick = jest.fn();

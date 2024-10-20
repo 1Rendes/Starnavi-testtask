@@ -1,7 +1,7 @@
 import { useParams } from "react-router-dom";
 import { useEffect } from "react";
 import "reactflow/dist/style.css";
-import Flow from "../components/Flow";
+import Flow from "../components/Flow/Flow";
 import { useDispatch, useSelector } from "react-redux";
 import {
   selectCharacterName,

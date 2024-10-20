@@ -1,7 +1,7 @@
 import { Suspense } from "react";
 import { Navigate, Route, Routes } from "react-router-dom";
 import HomePage from "./pages/HomePage.jsx";
-import Navigation from "./components/Navigation.jsx";
+import Navigation from "./components/Navigation/Navigation.js";
 import CharacterPage from "./pages/CharacterPage.jsx";
 
 function App() {

@@ -1,6 +1,6 @@
 import { render, screen } from "@testing-library/react";
-import Flow from "../components/Flow";
-import { GraphData } from "../types";
+import Flow from "./Flow";
+import { GraphData } from "../../types";
 
 const mockGraphData: GraphData = {
   initialNodes: [

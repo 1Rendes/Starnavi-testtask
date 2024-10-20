@@ -13,7 +13,7 @@ import ReactFlow, {
   EdgeChange,
 } from "reactflow";
 import "reactflow/dist/style.css";
-import { FlowProps } from "../types";
+import { FlowProps } from "../../types";
 import css from "./Flow.module.css";
 
 const Flow: React.FC<FlowProps> = ({ graphData }) => {

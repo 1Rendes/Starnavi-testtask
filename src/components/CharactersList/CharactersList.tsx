@@ -1,8 +1,8 @@
 import { Link } from "react-router-dom";
-import { setCharacterName } from "../redux/slice";
+import { setCharacterName } from "../../redux/slice";
 import { useDispatch } from "react-redux";
-import { CharactersListProps } from "../types";
-import { AppDispatch } from "../redux/store";
+import { CharactersListProps } from "../../types";
+import { AppDispatch } from "../../redux/store";
 import css from "./CharactersList.module.css";
 
 const CharactersList: React.FC<CharactersListProps> = ({ charactersList }) => {
