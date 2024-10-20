@@ -6,12 +6,14 @@ import { useDispatch, useSelector } from "react-redux";
 import {
   selectError,
   selectHomePageEndpoint,
+  selectNext,
   selectPage,
   selectRenderData,
 } from "../redux/selectors";
 import { getOnePageList } from "../redux/operations";
 import { resetData, setPage } from "../redux/slice";
 import { AppDispatch } from "../redux/store";
+import Container from "../components/Container";
 
 const HomePage = () => {
   const dispatch = useDispatch<AppDispatch>();
@@ -19,6 +21,7 @@ const HomePage = () => {
   const renderData = useSelector(selectRenderData);
   const endpoint = useSelector(selectHomePageEndpoint);
   const error = useSelector(selectError);
+  const next = useSelector(selectNext);
 
   useEffect(() => {
     dispatch(resetData());
@@ -29,7 +32,19 @@ const HomePage = () => {
     dispatch(getOnePageList(values));
   }, [dispatch, endpoint, page]);
 
+  useEffect(() => {
+    if (page === 1) return;
+    window.scrollBy({
+      top: 500,
+      behavior: "smooth",
+    });
+  }, [renderData, page]);
+
   const loadMoreHandle = () => {
+    if (!next) {
+      toast.error("That's all of them.");
+      return;
+    }
     dispatch(setPage());
   };
   useEffect(() => {
@@ -37,11 +52,11 @@ const HomePage = () => {
   }, [error]);
 
   return (
-    <div>
+    <Container>
       {renderData && <CharacterList charactersList={renderData} />}
       <Toaster />
       <LoadMoreButton onClick={loadMoreHandle} />
-    </div>
+    </Container>
   );
 };
 

@@ -14,3 +14,4 @@ export const selectCharacterName = (state: RootState) =>
 export const selectFilms = (state: RootState) => state.state.films;
 export const selectGraphData = (state: RootState) => state.state.graphData;
 export const selectIsLoaded = (state: RootState) => state.state.isLoaded;
+export const selectNext = (state: RootState) => state.state.next;

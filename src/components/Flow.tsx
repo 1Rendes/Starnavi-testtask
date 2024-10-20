@@ -14,6 +14,7 @@ import ReactFlow, {
 } from "reactflow";
 import "reactflow/dist/style.css";
 import { FlowProps } from "../types";
+import css from "./Flow.module.css";
 
 const Flow: React.FC<FlowProps> = ({ graphData }) => {
   const { initialEdges, initialNodes } = graphData;
@@ -26,13 +27,14 @@ const Flow: React.FC<FlowProps> = ({ graphData }) => {
   );
 
   return (
-    <div style={{ width: "100%", height: "700px" }}>
+    <div className={css.flowDiv}>
       <ReactFlow
         nodes={nodes}
         edges={edges}
         onNodesChange={onNodesChange as (changes: NodeChange[]) => void}
         onEdgesChange={onEdgesChange as (changes: EdgeChange[]) => void}
         onConnect={onConnect}
+        className={css.flow}
       >
         <MiniMap />
         <Controls />

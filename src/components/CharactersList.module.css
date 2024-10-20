@@ -1,0 +1,11 @@
+.character {
+  color: #c8c8c8;
+}
+
+.character:hover {
+  color: #1100fb;
+}
+
+.charactersList {
+  margin-bottom: 40px;
+}

@@ -70,20 +70,23 @@ describe("stateSlice", () => {
 describe("extraReducers in stateSlice", () => {
   it("should handle getOnePageList.fulfilled", () => {
     const previousState = { ...INITIAL_STATE, renderData: [] };
-    const payload: RenderData = [
-      {
-        id: 1,
-        name: "Luke Skywalker",
-        films: [1, 2],
-        starships: [3],
-      },
-    ];
+    const payload = {
+      next: "true",
+      results: [
+        {
+          id: 1,
+          name: "Luke Skywalker",
+          films: [1, 2],
+          starships: [3],
+        },
+      ],
+    };
     const newState = stateReducer(
       previousState,
       getOnePageList.fulfilled(payload, "", { endpoint: "", page: 1 })
     );
-
-    expect(newState.renderData).toEqual(payload);
+    expect(newState.next).toBe(payload.next);
+    expect(newState.renderData).toEqual(payload.results);
   });
 
   it("should handle getOnePageList.rejected", () => {
@@ -95,7 +98,6 @@ describe("extraReducers in stateSlice", () => {
         page: 1,
       })
     );
-
     expect(newState.error).toBe("Unknown error.");
   });
 

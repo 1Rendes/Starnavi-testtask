@@ -17,7 +17,7 @@ export const getOnePageList = createAsyncThunk(
         page,
         undefined
       );
-      return onePageList?.results;
+      return onePageList;
     } catch (err) {
       const error = err as Error;
       return thunkApi.rejectWithValue({ message: error.message });

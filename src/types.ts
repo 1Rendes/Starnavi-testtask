@@ -1,7 +1,9 @@
+import { ReactNode } from "react";
 import { Edge, Node } from "reactflow";
 
 export type InitialState = {
   page: number;
+  next: string | null;
   renderData: {
     id: number;
     name: string;
@@ -36,6 +38,11 @@ export type RenderData = {
   starships: number[];
   [key: string]: any;
 }[];
+export type ResultsData = {
+  next: string | null;
+  results: RenderData;
+  [key: string]: any;
+};
 
 export type Films = Film[];
 export type Film = { id: number; title: string };
@@ -76,4 +83,7 @@ export type LoadMoreButtonProps = {
 
 export type RejectedValue = {
   message: string;
-}
+};
+export type ContainerProps = {
+  children: ReactNode;
+};

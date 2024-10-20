@@ -9,6 +9,7 @@ import {
   selectFilms,
   selectGraphData,
   selectIsLoaded,
+  selectNext,
 } from "./selectors";
 import { RootState } from "./store";
 
@@ -16,6 +17,7 @@ describe("Redux Selectors", () => {
   const mockState: RootState = {
     state: {
       page: 1,
+      next: "true",
       renderData: [{ id: 1, name: "Luke Skywalker", films: [], starships: [] }],
       homePageEndpoint: "people/",
       filmsEndpoint: "films/",
@@ -80,5 +82,9 @@ describe("Redux Selectors", () => {
 
   it("should select isLoaded", () => {
     expect(selectIsLoaded(mockState)).toEqual(mockState.state.isLoaded);
+  });
+
+  it("should select next", () => {
+    expect(selectNext(mockState)).toBe(mockState.state.next);
   });
 });

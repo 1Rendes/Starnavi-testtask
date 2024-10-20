@@ -6,10 +6,12 @@ import {
   InitialState,
   RejectedValue,
   RenderData,
+  ResultsData,
 } from "../types";
 
 export const INITIAL_STATE: InitialState = {
   page: 1,
+  next: "true",
   renderData: [],
   homePageEndpoint: "people/",
   filmsEndpoint: "films/",
@@ -46,26 +48,23 @@ export const stateSlice = createSlice({
   extraReducers: (builder) => {
     builder.addCase(
       getOnePageList.fulfilled,
-      (state, { payload }: PayloadAction<RenderData>) => {
-        state.renderData = [...state.renderData, ...payload];
+      (state, { payload }: PayloadAction<ResultsData>) => {
+        state.next = payload.next;
+        state.renderData = [...state.renderData, ...payload.results];
       }
-    );
-    builder.addCase(getOnePageList.rejected, (state, { payload }) => {
+    ).addCase(getOnePageList.rejected, (state, { payload }) => {
       const errorPayload = payload as RejectedValue | undefined;
       state.error = errorPayload?.message || "Unknown error.";
-    });
-    builder.addCase(
+    }).addCase(
       getFilmsData.fulfilled,
       (state, { payload }: PayloadAction<Films>) => {
         state.films = payload;
         state.graphData = { initialNodes: [], initialEdges: [] };
       }
-    );
-    builder.addCase(getFilmsData.rejected, (state, { payload }) => {
+    ).addCase(getFilmsData.rejected, (state, { payload }) => {
       const errorPayload = payload as RejectedValue | undefined;
       state.error = errorPayload?.message || "Unknown error.";
-    });
-    builder.addCase(
+    }).addCase(
       getGraphData.fulfilled,
       (state, { payload }: PayloadAction<GraphDataPayload>) => {
         state.graphData = payload.graphData;

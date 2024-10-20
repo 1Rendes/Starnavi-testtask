@@ -2,8 +2,7 @@ import { getOnePageList } from "../operations";
 import { fetchData } from "../../api/fetchData";
 import { configureStore } from "@reduxjs/toolkit";
 import { stateReducer } from "../slice";
-
-jest.mock("../../api/fetchData.ts");
+jest.mock("../../api/fetchData");
 
 const mockStore = configureStore({
   reducer: { state: stateReducer },
@@ -12,11 +11,13 @@ const mockStore = configureStore({
 describe("getOnePageList", () => {
   it("dispatches fulfilled action and returns data when API request succeeds", async () => {
     const mockData = {
+      next: "true",
       results: [
         { id: 10, name: "Obi-Wan Kenobi" },
         { id: 12, name: "Wilhuff Tarkin" },
       ],
     };
+
     (fetchData as jest.Mock).mockResolvedValueOnce(mockData);
 
     const result = await mockStore.dispatch(
@@ -24,7 +25,7 @@ describe("getOnePageList", () => {
     );
 
     expect(result.type).toBe("getOnePageList/fulfilled");
-    expect(result.payload).toEqual(mockData.results);
+    expect(result.payload).toEqual(mockData);
   });
 
   it("dispatches rejected action when API request fails", async () => {
