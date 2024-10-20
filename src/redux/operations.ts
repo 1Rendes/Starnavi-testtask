@@ -18,8 +18,9 @@ export const getOnePageList = createAsyncThunk(
         undefined
       );
       return onePageList?.results;
-    } catch (error) {
-      return thunkApi.rejectWithValue(error);
+    } catch (err) {
+      const error = err as Error;
+      return thunkApi.rejectWithValue({ message: error.message });
     }
   }
 );
@@ -36,8 +37,9 @@ export const getFilmsData = createAsyncThunk(
         })
       );
       return films;
-    } catch (error) {
-      return thunkApi.rejectWithValue(error);
+    } catch (err) {
+      const error = err as Error;
+      return thunkApi.rejectWithValue({ message: error.message });
     }
   }
 );
@@ -54,11 +56,12 @@ export const getGraphData = createAsyncThunk(
         films.map((film) => film.id).join(","),
         characterId
       );
-      const ShipsGroupedByFilm = groupByFilms(shipsData, films);
-      const graphData = createGraphData(characterName, ShipsGroupedByFilm);
+      const shipsGroupedByFilm = groupByFilms(shipsData, films);
+      const graphData = createGraphData(characterName, shipsGroupedByFilm);
       return { graphData, characterName };
-    } catch (error) {
-      return thunkApi.rejectWithValue(error);
+    } catch (err) {
+      const error = err as Error;
+      return thunkApi.rejectWithValue({ message: error.message });
     }
   }
 );

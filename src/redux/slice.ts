@@ -1,8 +1,14 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { getFilmsData, getGraphData, getOnePageList } from "./operations";
-import { Films, GraphDataPayload, InitialState, RenderData } from "../types";
+import {
+  Films,
+  GraphDataPayload,
+  InitialState,
+  RejectedValue,
+  RenderData,
+} from "../types";
 
-const INITIAL_STATE: InitialState = {
+export const INITIAL_STATE: InitialState = {
   page: 1,
   renderData: [],
   homePageEndpoint: "people/",
@@ -45,8 +51,8 @@ export const stateSlice = createSlice({
       }
     );
     builder.addCase(getOnePageList.rejected, (state, { payload }) => {
-      state.error =
-        payload instanceof Error ? payload.message : "Unknown error.";
+      const errorPayload = payload as RejectedValue | undefined;
+      state.error = errorPayload?.message || "Unknown error.";
     });
     builder.addCase(
       getFilmsData.fulfilled,
@@ -56,8 +62,8 @@ export const stateSlice = createSlice({
       }
     );
     builder.addCase(getFilmsData.rejected, (state, { payload }) => {
-      state.error =
-        payload instanceof Error ? payload.message : "Unknown error.";
+      const errorPayload = payload as RejectedValue | undefined;
+      state.error = errorPayload?.message || "Unknown error.";
     });
     builder.addCase(
       getGraphData.fulfilled,

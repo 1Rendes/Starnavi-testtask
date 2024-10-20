@@ -73,3 +73,7 @@ export type FlowProps = {
 export type LoadMoreButtonProps = {
   onClick: () => void;
 };
+
+export type RejectedValue = {
+  message: string;
+}

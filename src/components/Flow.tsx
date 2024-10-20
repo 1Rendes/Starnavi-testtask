@@ -12,9 +12,8 @@ import ReactFlow, {
   NodeChange,
   EdgeChange,
 } from "reactflow";
-
 import "reactflow/dist/style.css";
-import { FlowProps, CustomNodeData } from "../types";
+import { FlowProps } from "../types";
 
 const Flow: React.FC<FlowProps> = ({ graphData }) => {
   const { initialEdges, initialNodes } = graphData;
