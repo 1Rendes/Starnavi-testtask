@@ -1,0 +1,9 @@
+.flowDiv {
+  display: flex;
+  height: 85vh;
+  padding: 30px;
+}
+.flow {
+  border-radius: 10px;
+  background-color: rgb(130, 130, 130);
+}
