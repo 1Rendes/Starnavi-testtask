@@ -20,7 +20,7 @@ describe("fetchData", () => {
 
     const endpoint = "test-endpoint";
     const films = "1,2,3";
-    const characterId = "10";
+    const characterId = 10;
     const page = 1;
     const characters: Character[] = [];
 

@@ -30,12 +30,13 @@ export const getFilmsData = createAsyncThunk(
   async (endpoint: string, thunkApi) => {
     try {
       const { results } = await fetchData(endpoint);
-      const films = results.map(
-        (filmsData: Film): Film => ({
+      const films = results.map((filmsData: Film): Film => {
+        return {
           id: filmsData.id,
           title: filmsData.title,
-        })
-      );
+          characters: filmsData.characters,
+        };
+      });
       return films;
     } catch (err) {
       const error = err as Error;
@@ -47,17 +48,20 @@ export const getFilmsData = createAsyncThunk(
 export const getGraphData = createAsyncThunk(
   "getGraphData",
   async (
-    { shipEndpoint, films, characterId, characterName }: GetGraphDataValues,
+    { shipEndpoint, films, characterIntId, characterName }: GetGraphDataValues,
     thunkApi
   ) => {
     try {
       const shipsData = await fetchData(
         shipEndpoint,
         films.map((film) => film.id).join(","),
-        characterId
+        characterIntId
       );
-      const shipsGroupedByFilm = groupByFilms(shipsData, films);
+      const shipsGroupedByFilm = groupByFilms(shipsData, films, characterIntId);
+      console.log(shipsGroupedByFilm);
       const graphData = createGraphData(characterName, shipsGroupedByFilm);
+      console.log(graphData);
+
       return { graphData, characterName };
     } catch (err) {
       const error = err as Error;

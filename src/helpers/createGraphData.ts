@@ -20,11 +20,14 @@ export function createGraphData(
   // Create film nodes below the hero node
   Object.keys(filmShipMapping).map((filmTitle, index) => {
     const filmNodeId = `film-${filmTitle}`;
+    const shipNames = filmShipMapping[filmTitle];
+    const hasShips = shipNames.length > 0;
+
     initialNodes.push({
       id: filmNodeId,
-      type: "default",
+      type: hasShips ? "default" : "output", // Set as "output" if no ships are associated
       data: { label: filmTitle },
-      position: { x: 200 + index * 200, y: 200 }, // Spread films horizontally
+      position: { x: 100 + index * 200, y: 200 }, // Spread films horizontally
     });
 
     // Create an edge from the hero node to each film node

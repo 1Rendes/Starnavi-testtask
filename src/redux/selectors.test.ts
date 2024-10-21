@@ -22,7 +22,7 @@ describe("Redux Selectors", () => {
       homePageEndpoint: "people/",
       filmsEndpoint: "films/",
       shipEndpoint: "starships/",
-      films: [{ id: 1, title: "A New Hope" }],
+      films: [{ id: 1, title: "A New Hope", characters: [1,2,3] }],
       graphData: {
         initialNodes: [
           { id: "1", data: { label: "label_1" }, position: { x: 0, y: 0 } },

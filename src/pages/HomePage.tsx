@@ -25,12 +25,12 @@ const HomePage = () => {
 
   useEffect(() => {
     dispatch(resetData());
-  }, [dispatch]);
+  }, []);
 
   useEffect(() => {
     const values = { endpoint, page };
     dispatch(getOnePageList(values));
-  }, [dispatch, endpoint, page]);
+  }, [page]);
 
   useEffect(() => {
     if (page === 1) return;

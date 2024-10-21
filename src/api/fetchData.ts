@@ -6,7 +6,7 @@ axios.defaults.baseURL = "https://sw-api.starnavi.io/";
 export async function fetchData(
   endpoint: string,
   films?: string,
-  characterId?: string,
+  characterId?: number,
   page?: number,
   characters?: Character[]
 ) {

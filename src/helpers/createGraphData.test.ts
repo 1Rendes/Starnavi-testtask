@@ -13,6 +13,10 @@ describe("createGraphData", () => {
       "Jedi Interceptor",
       "Belbullab-22 starfighter",
     ],
+    "A New Hope": [],
+    "The Empire Strikes Back": [],
+    "Return of the Jedi": [],
+    "The Phantom Menace": [],
   };
 
   it("should create nodes and edges correctly", () => {
@@ -23,65 +27,169 @@ describe("createGraphData", () => {
 
     const expectedNodes: Node[] = [
       {
-        id: `hero-${heroName}`,
+        id: "hero-Obi-Wan Kenobi",
         type: "input",
-        data: { label: heroName },
-        position: { x: 400, y: 50 },
+        data: {
+          label: "Obi-Wan Kenobi",
+        },
+        position: {
+          x: 400,
+          y: 50,
+        },
       },
       {
         id: "film-Attack of the Clones",
         type: "default",
-        data: { label: "Attack of the Clones" },
-        position: { x: 200, y: 200 },
+        data: {
+          label: "Attack of the Clones",
+        },
+        position: {
+          x: 100,
+          y: 200,
+        },
       },
       {
         id: "film-Revenge of the Sith",
         type: "default",
-        data: { label: "Revenge of the Sith" },
-        position: { x: 400, y: 200 },
+        data: {
+          label: "Revenge of the Sith",
+        },
+        position: {
+          x: 300,
+          y: 200,
+        },
+      },
+      {
+        id: "film-A New Hope",
+        type: "output",
+        data: {
+          label: "A New Hope",
+        },
+        position: {
+          x: 500,
+          y: 200,
+        },
+      },
+      {
+        id: "film-The Empire Strikes Back",
+        type: "output",
+        data: {
+          label: "The Empire Strikes Back",
+        },
+        position: {
+          x: 700,
+          y: 200,
+        },
+      },
+      {
+        id: "film-Return of the Jedi",
+        type: "output",
+        data: {
+          label: "Return of the Jedi",
+        },
+        position: {
+          x: 900,
+          y: 200,
+        },
+      },
+      {
+        id: "film-The Phantom Menace",
+        type: "output",
+        data: {
+          label: "The Phantom Menace",
+        },
+        position: {
+          x: 1100,
+          y: 200,
+        },
       },
       {
         id: "ship-Jedi starfighter",
         type: "output",
-        data: { label: "Jedi starfighter" },
-        position: { x: 100, y: 400 },
+        data: {
+          label: "Jedi starfighter",
+        },
+        position: {
+          x: 100,
+          y: 400,
+        },
       },
       {
         id: "ship-Trade Federation cruiser",
         type: "output",
-        data: { label: "Trade Federation cruiser" },
-        position: { x: 300, y: 400 },
+        data: {
+          label: "Trade Federation cruiser",
+        },
+        position: {
+          x: 300,
+          y: 400,
+        },
       },
       {
         id: "ship-Naboo star skiff",
         type: "output",
-        data: { label: "Naboo star skiff" },
-        position: { x: 500, y: 400 },
+        data: {
+          label: "Naboo star skiff",
+        },
+        position: {
+          x: 500,
+          y: 400,
+        },
       },
       {
         id: "ship-Jedi Interceptor",
         type: "output",
-        data: { label: "Jedi Interceptor" },
-        position: { x: 700, y: 400 },
+        data: {
+          label: "Jedi Interceptor",
+        },
+        position: {
+          x: 700,
+          y: 400,
+        },
       },
       {
         id: "ship-Belbullab-22 starfighter",
         type: "output",
-        data: { label: "Belbullab-22 starfighter" },
-        position: { x: 900, y: 400 },
+        data: {
+          label: "Belbullab-22 starfighter",
+        },
+        position: {
+          x: 900,
+          y: 400,
+        },
       },
     ];
 
     const expectedEdges: Edge[] = [
       {
-        id: `edge-hero-${heroName}-film-Attack of the Clones`,
-        source: `hero-${heroName}`,
+        id: "edge-hero-Obi-Wan Kenobi-film-Attack of the Clones",
+        source: "hero-Obi-Wan Kenobi",
         target: "film-Attack of the Clones",
       },
       {
-        id: `edge-hero-${heroName}-film-Revenge of the Sith`,
-        source: `hero-${heroName}`,
+        id: "edge-hero-Obi-Wan Kenobi-film-Revenge of the Sith",
+        source: "hero-Obi-Wan Kenobi",
         target: "film-Revenge of the Sith",
+      },
+      {
+        id: "edge-hero-Obi-Wan Kenobi-film-A New Hope",
+        source: "hero-Obi-Wan Kenobi",
+        target: "film-A New Hope",
+      },
+      {
+        id: "edge-hero-Obi-Wan Kenobi-film-The Empire Strikes Back",
+        source: "hero-Obi-Wan Kenobi",
+        target: "film-The Empire Strikes Back",
+      },
+      {
+        id: "edge-hero-Obi-Wan Kenobi-film-Return of the Jedi",
+        source: "hero-Obi-Wan Kenobi",
+        target: "film-Return of the Jedi",
+      },
+      {
+        id: "edge-hero-Obi-Wan Kenobi-film-The Phantom Menace",
+        source: "hero-Obi-Wan Kenobi",
+        target: "film-The Phantom Menace",
       },
       {
         id: "edge-film-Attack of the Clones-ship-Jedi starfighter",

@@ -1,10 +1,4 @@
-import {
-  stateReducer,
-  setPage,
-  resetData,
-  setCharacterName,
-  resetFilmData,
-} from "./slice";
+import { stateReducer, setPage, resetData, setCharacterName } from "./slice";
 import { getFilmsData, getGraphData, getOnePageList } from "./operations";
 import { INITIAL_STATE } from "./slice";
 import { Films, GraphDataPayload, RenderData } from "../types";
@@ -36,10 +30,13 @@ describe("stateSlice", () => {
       error: "Some error",
     };
     expect(stateReducer(previousState, resetData())).toEqual({
-      ...previousState,
+      ...INITIAL_STATE,
       renderData: [],
       error: "",
       graphData: { initialNodes: [], initialEdges: [] },
+      isLoaded: false,
+      page: 1,
+      films: [],
     });
   });
 
@@ -50,19 +47,6 @@ describe("stateSlice", () => {
     ).toEqual({
       ...previousState,
       characterName: "New Character",
-      isLoaded: false,
-      page: 1,
-    });
-  });
-
-  it("should handle resetFilmData", () => {
-    const previousState = {
-      ...INITIAL_STATE,
-      films: [{ id: 1, title: "Film 1" }],
-    };
-    expect(stateReducer(previousState, resetFilmData())).toEqual({
-      ...previousState,
-      films: [],
     });
   });
 });
@@ -103,7 +87,7 @@ describe("extraReducers in stateSlice", () => {
 
   it("should handle getFilmsData.fulfilled", () => {
     const previousState = { ...INITIAL_STATE, films: [] };
-    const payload: Films = [{ id: 1, title: "Film 1" }];
+    const payload: Films = [{ id: 1, title: "Film 1", characters: [1, 2, 3] }];
     const newState = stateReducer(
       previousState,
       getFilmsData.fulfilled(payload, "", "")
@@ -140,8 +124,8 @@ describe("extraReducers in stateSlice", () => {
 
     const arg = {
       shipEndpoint: "",
-      films: [{ id: 1, title: "Film 1" }],
-      characterId: "10",
+      films: [{ id: 1, title: "Film 1", characters: [1, 2, 3] }],
+      characterIntId: 10,
       characterName: "Luke Skywalker",
     };
 

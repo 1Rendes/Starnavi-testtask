@@ -12,7 +12,6 @@ import {
   selectShipEndpoint,
 } from "../redux/selectors";
 import { getFilmsData, getGraphData } from "../redux/operations";
-import { resetFilmData } from "../redux/slice";
 import { AppDispatch } from "../redux/store";
 
 const CharacterPage = () => {
@@ -31,9 +30,11 @@ const CharacterPage = () => {
   }, []);
 
   useEffect(() => {
-    if (!films.length) return;
-    dispatch(getGraphData({ shipEndpoint, films, characterId, characterName }));
-    dispatch(resetFilmData());
+    if (!films.length || !characterId) return;
+    const characterIntId: number = parseInt(characterId);
+    dispatch(
+      getGraphData({ shipEndpoint, films, characterIntId, characterName })
+    );
   }, [films]);
 
   return <>{isLoaded && <Flow graphData={graphData} />}</>;

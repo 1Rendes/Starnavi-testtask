@@ -14,7 +14,7 @@ export type InitialState = {
   homePageEndpoint: string;
   filmsEndpoint: string;
   shipEndpoint: string;
-  films: { id: number; title: string }[];
+  films: { id: number; title: string; characters: number[] }[];
   graphData: GraphData;
   isLoaded: boolean;
   characterName: string;
@@ -45,7 +45,7 @@ export type ResultsData = {
 };
 
 export type Films = Film[];
-export type Film = { id: number; title: string };
+export type Film = { id: number; title: string; characters: number[] };
 export type FilmMapping = {
   [filmTitle: string]: string[];
 };
@@ -60,7 +60,7 @@ export type GetOnePageListValues = { endpoint: string; page: number };
 export type GetGraphDataValues = {
   shipEndpoint: string;
   films: Films;
-  characterId: string | undefined;
+  characterIntId: number;
   characterName: string;
 };
 
