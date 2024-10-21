@@ -38,7 +38,7 @@ const HomePage = () => {
       top: 500,
       behavior: "smooth",
     });
-  }, [renderData, page]);
+  }, [renderData]);
 
   const loadMoreHandle = () => {
     dispatch(setPage());
