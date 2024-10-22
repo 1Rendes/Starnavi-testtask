@@ -58,10 +58,7 @@ export const getGraphData = createAsyncThunk(
         characterIntId
       );
       const shipsGroupedByFilm = groupByFilms(shipsData, films, characterIntId);
-      console.log(shipsGroupedByFilm);
       const graphData = createGraphData(characterName, shipsGroupedByFilm);
-      console.log(graphData);
-
       return { graphData, characterName };
     } catch (err) {
       const error = err as Error;
