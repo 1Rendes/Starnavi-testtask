@@ -26,6 +26,7 @@ const HomePage = () => {
   useEffect(() => {
     dispatch(resetData());
   }, []);
+  console.log(page);
 
   useEffect(() => {
     const values = { endpoint, page };

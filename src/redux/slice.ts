@@ -36,7 +36,6 @@ export const stateSlice = createSlice({
       state.error = "";
       state.graphData = { initialNodes: [], initialEdges: [] };
       state.isLoaded = false;
-      state.page = 1;
       state.films = [];
     },
     setCharacterName(state, { payload }) {
@@ -73,6 +72,7 @@ export const stateSlice = createSlice({
           state.graphData = payload.graphData;
           state.characterName = payload.characterName;
           state.isLoaded = true;
+          state.page = 1;
         }
       );
   },
